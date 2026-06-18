@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WELCOME TO THE HOOPER ZONE</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: #fff;
+      font-family: "Comic Sans MS", "Comic Sans", "Times New Roman", cursive;
+      background-color: #020202;
+      background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(#fff 1px, transparent 1px),
+        radial-gradient(#ffee00 1px, transparent 1px);
+      background-size: 70px 70px, 120px 120px, 210px 210px;
+      background-position: 0 0, 35px 60px, 80px 20px;
+      overflow-x: hidden;
+    }
+    a { color: #00ffff; }
+    .browser-bar {
+      height: 38px;
+      background: #eeeeee;
+      color: #999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px ridge #bbb;
+    }
+    .dot { width: 13px; height: 13px; border-radius: 50%; display: inline-block; }
+    .red { background: #ff5f57; }
+    .yellow { background: #febc2e; }
+    .green { background: #28c840; }
+    .address {
+      flex: 1;
+      height: 19px;
+      background: white;
+      border-radius: 99px;
+      margin-left: 14px;
+      box-shadow: inset 0 1px 3px #bbb;
+      text-align: center;
+      font-size: 11px;
+      line-height: 19px;
+      color: #aaa;
+    }
+    marquee {
+      background: linear-gradient(90deg, #ff00ff, #ffff00, #00ffff, #00ff00, #ff00ff);
+      color: #000;
+      font-weight: 900;
+      padding: 8px;
+      font-size: 18px;
+      text-shadow: 1px 1px white;
+      border-bottom: 4px double #fff;
+    }
+    .wrap { width: min(1120px, 94vw); margin: 0 auto; }
+    header {
+      text-align: center;
+      padding: 34px 0 20px;
+      position: relative;
+    }
+    .title {
+      font-size: clamp(42px, 8vw, 96px);
+      margin: 0;
+      letter-spacing: 2px;
+      line-height: .95;
+      color: #ffff00;
+      text-shadow:
+        4px 4px #ff0000,
+        8px 8px #0000ff,
+        0 0 18px #00ffff;
+      animation: wobble 1.8s infinite alternate ease-in-out;
+    }
+    @keyframes wobble {
+      from { transform: rotate(-1deg) scale(1); }
+      to { transform: rotate(1deg) scale(1.02); }
+    }
+    .subtitle {
+      margin: 18px auto 8px;
+      font-size: clamp(18px, 3vw, 32px);
+      color: #00ff66;
+      text-shadow: 2px 2px #000, 0 0 12px #00ff66;
+    }
+    .warning {
+      display: inline-block;
+      background: #ff0000;
+      color: #ffff00;
+      padding: 8px 16px;
+      border: 4px outset #ffff00;
+      font-weight: 900;
+      margin-top: 10px;
+      transform: rotate(-1deg);
+    }
+    .top-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 22px auto;
+    }
+    .retro-link, button.retro-link {
+      font: inherit;
+      cursor: pointer;
+      border: 4px outset #00ffff;
+      background: #0000cc;
+      color: #ffff00;
+      padding: 8px 12px;
+      text-decoration: none;
+      box-shadow: 4px 4px 0 #ff00ff;
+      font-weight: 900;
+    }
+    .retro-link:hover { background: #ff00ff; color: #fff; border-color: #ffff00; }
+    .hero {
+      border: 6px ridge #00ffff;
+      background: rgba(0,0,0,.72);
+      padding: 24px;
+      margin: 20px 0 28px;
+      box-shadow: 0 0 25px #00ffff, inset 0 0 20px #001166;
+      text-align: center;
+    }
+    .hero p { font-size: 22px; line-height: 1.45; max-width: 880px; margin: 15px auto; }
+    .blink { animation: blink .65s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .rainbow {
+      background: linear-gradient(90deg, red, orange, yellow, lime, cyan, violet, red);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: rainbow 2s linear infinite;
+      font-weight: 900;
+    }
+    @keyframes rainbow { to { background-position: 300% 0; } }
+    section {
+      margin: 34px 0;
+      padding: 22px;
+      background: rgba(0,0,0,.78);
+      border: 5px groove #ff00ff;
+      box-shadow: 0 0 22px rgba(255,0,255,.8);
+      position: relative;
+    }
+    h2 {
+      color: #00ffff;
+      text-shadow: 3px 3px #ff00ff, 0 0 12px #00ffff;
+      text-align: center;
+      font-size: clamp(28px, 4vw, 48px);
+      margin: 4px 0 22px;
+    }
+    .story {
+      max-width: 860px;
+      margin: 0 auto;
+      font-size: 21px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .planets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+    }
+    .planet {
+      min-height: 220px;
+      border-radius: 50%;
+      padding: 34px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 5px outset #fff;
+      color: #000;
+      font-weight: 900;
+      box-shadow: 0 0 20px #fff;
+      transition: transform .2s ease, filter .2s ease;
+      animation: floaty 3.5s infinite alternate ease-in-out;
+    }
+    .planet:hover { transform: scale(1.08) rotate(4deg); filter: saturate(1.5); }
+    .planet h3 { margin: 0 0 8px; font-size: 23px; text-shadow: 1px 1px white; }
+    .planet p { margin: 0; font-size: 15px; }
+    .p1 { background: radial-gradient(circle at 30% 25%, #ffff99, #ffcc00 35%, #ff3300); }
+    .p2 { background: radial-gradient(circle at 30% 25%, #ccffcc, #00ff66 40%, #006600); }
+    .p3 { background: radial-gradient(circle at 30% 25%, #ffccff, #ff00ff 40%, #660066); color: white; }
+    .p4 { background: radial-gradient(circle at 30% 25%, #ccffff, #00ffff 40%, #000099); color: white; }
+    .p5 { background: radial-gradient(circle at 30% 25%, #fff, #ff9999 40%, #cc0000); }
+    .p6 { background: radial-gradient(circle at 30% 25%, #ffffcc, #99ff00 40%, #336600); }
+    .p7 { background: radial-gradient(circle at 30% 25%, #ffffff, #9999ff 40%, #0000ff); color: white; }
+    .p8 { background: radial-gradient(circle at 30% 25%, #eeeeee, #aaaaaa 40%, #333333); color: white; }
+    @keyframes floaty { from { translate: 0 0; } to { translate: 0 -8px; } }
+    .lidl {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .card {
+      border: 4px dashed #ffff00;
+      background: #001a66;
+      padding: 18px;
+      font-size: 20px;
+      line-height: 1.45;
+      box-shadow: 8px 8px 0 #ff0000;
+    }
+    .sock {
+      font-size: clamp(72px, 14vw, 180px);
+      text-align: center;
+      filter: drop-shadow(0 0 16px #ffff00);
+      animation: sockspin 5s linear infinite;
+    }
+    @keyframes sockspin { to { transform: rotate(360deg); } }
+    .powers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .power {
+      background: #ffff00;
+      color: #000;
+      border: 4px outset #ff00ff;
+      padding: 12px;
+      text-align: center;
+      font-weight: 900;
+      text-shadow: 1px 1px white;
+    }
+    .awards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .award {
+      min-height: 130px;
+      background: linear-gradient(135deg, #ffcc00, #ff6600, #ff00ff);
+      color: #000;
+      border: 5px ridge #fff;
+      padding: 16px;
+      text-align: center;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 1px 1px #fff;
+      transform: rotate(-1deg);
+    }
+    .facts { max-width: 900px; margin: 0 auto; }
+    .fact {
+      margin: 14px 0;
+      padding: 14px 18px;
+      background: #111;
+      border-left: 12px solid #00ff66;
+      font-size: 20px;
+      box-shadow: 4px 4px 0 #00ffff;
+    }
+    .buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+      text-align: center;
+    }
+    .big-button {
+      border: 6px outset #ffff00;
+      background: linear-gradient(#ff00ff, #0000ff);
+      color: white;
+      padding: 18px 12px;
+      font-size: 19px;
+      font-weight: 900;
+      text-shadow: 2px 2px #000;
+      cursor: pointer;
+      min-height: 90px;
+    }
+    .big-button:hover { background: linear-gradient(#00ff66, #ffff00); color: #000; text-shadow: 1px 1px #fff; }
+    .prophecy {
+      font-size: clamp(22px, 3vw, 34px);
+      color: #ffff00;
+      text-align: center;
+      line-height: 1.35;
+      text-shadow: 3px 3px #ff0000, 0 0 18px #ffff00;
+    }
+    .doom {
+      margin: 28px auto 0;
+      max-width: 900px;
+      padding: 22px;
+      border: 8px double #ffff00;
+      background: #330000;
+      color: #ff0000;
+      font-size: clamp(28px, 5vw, 58px);
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.1;
+      text-shadow: 3px 3px #000, 0 0 18px #ff0000;
+      animation: blink .9s steps(1) infinite;
+    }
+    .counter {
+      margin: 20px auto;
+      width: fit-content;
+      background: #000;
+      border: 4px inset #ccc;
+      color: #00ff00;
+      font-family: "Courier New", monospace;
+      font-size: 28px;
+      padding: 6px 12px;
+      letter-spacing: 4px;
+    }
+    footer {
+      text-align: center;
+      padding: 28px 10px 48px;
+      color: #ccc;
+      font-size: 16px;
+    }
+    .construction {
+      display: inline-block;
+      background: repeating-linear-gradient(45deg, #ffff00, #ffff00 10px, #000 10px, #000 20px);
+      color: #fff;
+      padding: 10px 16px;
+      border: 4px ridge #fff;
+      text-shadow: 2px 2px #000;
+      font-weight: 900;
+      margin: 12px;
+    }
+    #popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    #popup .box {
+      max-width: 520px;
+      background: #ffff00;
+      color: #000;
+      border: 8px outset #ff00ff;
+      padding: 24px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 900;
+      box-shadow: 0 0 40px #00ffff;
+    }
+    #popup button {
+      margin-top: 18px;
+      font: inherit;
+      background: #0000ff;
+      color: #fff;
+      border: 4px outset #fff;
+      padding: 8px 18px;
+      cursor: pointer;
+    }
+    @media (max-width: 720px) {
+      .lidl { grid-template-columns: 1fr; }
+      .hero p, .story, .card { font-size: 18px; }
+      section { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="browser-bar">
+    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+    <div class="address">http://www.hooperzone.net/~socks/dj/kungfu/index.html</div>
+  </div>
+
+  <marquee scrollamount="8">*** NEW!!! THE HOOPER ZONE IS NOW ONLINE!!! FEATURING DJ LORE, KUNG FU, AND THE MYTHIC LIDL SOCKS!!! ***</marquee>
+
+  <div class="wrap">
+    <header>
+      <h1 class="title">WELCOME TO<br>THE HOOPER ZONE</h1>
+      <p class="subtitle">DJ. Kung Fu Master. LIDL Sock Prophet. Keeper of the Forbidden Playlist.</p>
+      <div class="warning blink">WARNING: EXTREME HOOPER ENERGY DETECTED</div>
+      <div class="top-links">
+        <a href="#lidl" class="retro-link">THE LIDL FILES</a>
+        <a href="#jobs" class="retro-link">HOOPER JOBS</a>
+        <a href="#dj" class="retro-link">DJ YEARS</a>
+        <button class="retro-link" onclick="showPopup('High Bandwidth Hooper Mode activated. Please wait 27 years for the image to load.')">HIGH BANDWIDTH VERSION</button>
+        <button class="retro-link" onclick="showPopup('Downloading Hooper.zip... file size unknown... contents emotionally unstable.')">DOWNLOAD HOOPER.ZIP</button>
+      </div>
+    </header>
+
+    <div class="hero">
+      <p><span class="rainbow">You have entered the Hooper Zone.</span></p>
+      <p>Few have found it. Fewer have understood it. None have returned with their original sense of reality intact.</p>
+      <p>Somewhere between a nightclub, a martial arts dojo, a LIDL middle aisle, and a badly compressed 1990s homepage, one name echoes through the modem cables of history:</p>
+      <p style="font-size: 36px;"><span class="rainbow">MR HOOPER</span></p>
+    </div>
+
+    <section>
+      <h2>THE LEGEND BEGINS</h2>
+      <div class="story">
+        <p>Long before the Hooper Zone appeared on the internet, there were rumours.</p>
+        <p>Some said Mr Hooper was a DJ. Some said he knew kung fu. Some said he could appear in the middle aisle of LIDL at exactly the moment the best item was reduced.</p>
+        <p>Nobody knew the truth.</p>
+        <p>Until the socks appeared.</p>
+      </div>
+    </section>
+
+    <section id="lidl">
+      <h2>THE LIDL FILES</h2>
+      <div class="lidl">
+        <div class="card">
+          <p>Experts have long debated Mr Hooper's mysterious connection to LIDL.</p>
+          <p>Was he simply a customer?</p>
+          <p>Was he chosen by the middle aisle?</p>
+          <p>Did he discover the legendary LIDL socks by accident, or were they waiting for him all along?</p>
+          <p>The official records are unclear. The receipts have vanished. The barcode refuses to scan.</p>
+          <p><strong>Wherever Mr Hooper goes, the aura of LIDL follows.</strong></p>
+        </div>
+        <div class="card">
+          <div class="sock">🧦</div>
+          <p style="text-align:center;"><strong>THE MYTHIC LIDL SOCKS</strong></p>
+          <p>Ancient relics disguised as supermarket merchandise. Woven from bargain thread and chaotic energy.</p>
+        </div>
+      </div>
+      <div class="powers">
+        <div class="power">+10 DJ ENERGY</div>
+        <div class="power">+7 KUNG FU BALANCE</div>
+        <div class="power">+15 MIDDLE AISLE AWARENESS</div>
+        <div class="power">+99 BARGAIN DETECTION</div>
+        <div class="power">IMMUNE TO WEAK BASSLINES</div>
+        <div class="power">UNLOCKS SECRET HOOPER MODE</div>
+      </div>
+    </section>
+
+    <section id="jobs">
+      <h2>OFFICIAL HOOPER JOB TITLES</h2>
+      <div class="planets">
+        <div class="planet p1"><h3>DJ Hoops Supreme</h3><p>Master of the bassline. Can turn any room into a questionable but unforgettable dance floor.</p></div>
+        <div class="planet p2"><h3>Kung Fu Master of the Discount Aisle</h3><p>Moves silently between cereal, garden tools, and seasonal sports equipment.</p></div>
+        <div class="planet p3"><h3>LIDL Sock Prophet</h3><p>Foretold the coming of the sacred socks before they appeared in the weekly catalogue.</p></div>
+        <div class="planet p4"><h3>High Priest of the Middle Aisle</h3><p>Understands inflatable kayaks, welding masks, mini waffle makers, and mystery cables.</p></div>
+      </div>
+    </section>
+
+    <section id="dj">
+      <h2>THE DJ YEARS</h2>
+      <div class="story">
+        <p>Before the socks, there was music.</p>
+        <p>Before the music, there was silence.</p>
+        <p>Then Mr Hooper arrived.</p>
+        <p>With one hand on the decks and the other possibly holding a LIDL bakery bag, he brought rhythm to the people.</p>
+        <p>His sets were not performed. They were unleashed.</p>
+        <p>Witnesses claim that during one legendary night, he dropped the bass so hard that a nearby self checkout asked for assistance.</p>
+      </div>
+      <div class="awards" style="margin-top:24px;">
+        <div class="award">1996 GOLDEN SOCK TURNTABLE AWARD</div>
+        <div class="award">1997 BEST USE OF UNEXPECTED BASS</div>
+        <div class="award">1998 LIDL LOYALTY CARD MIXMASTER TROPHY</div>
+        <div class="award">CERTIFIED EMERGENCY PLAYLIST OPERATOR</div>
+        <div class="award">WINNER OF THE "ONE MORE SONG" WORLD CHAMPIONSHIP</div>
+      </div>
+    </section>
+
+
+    <section>
+      <h2>CHOOSE YOUR HOOPER EXPERIENCE</h2>
+      <div class="buttons-grid">
+        <button class="big-button" onclick="showPopup('SOCK MODE ENABLED. Your ankles now contain forbidden wisdom.')">ENTER SOCK MODE</button>
+        <button class="big-button" onclick="showPopup('Mixtape downloading... Track 1: Bargain Bass. Track 2: Aisle Five After Dark.')">DOWNLOAD HOOPER MIXTAPE</button>
+        <button class="big-button" onclick="showPopup('The prophecy says: Thursday. Special buys. Come prepared.')">VIEW LIDL PROPHECY</button>
+        <button class="big-button" onclick="showPopup('The middle aisle whispers: buy the strange gadget. You may need it one day.')">ASK THE MIDDLE AISLE</button>
+        <button class="big-button" onclick="showPopup('Kung Fu Bass activated. Nearby speakers are now nervous.')">ACTIVATE KUNG FU BASS</button>
+        <button class="big-button" onclick="showPopup('You clicked the sock. The sock has clicked back. Mr Hooper has been notified.')">DO NOT CLICK THE SOCK</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>THE PROPHECY</h2>
+      <div class="prophecy">
+        <p>It is said that when the bassline fades, when the middle aisle goes quiet, and when the last pair of LIDL socks disappears from the bargain bin, one figure shall return.</p>
+        <p>He will wear the socks.</p>
+        <p>He will carry the playlist.</p>
+        <p>He will know exactly where the good snacks are.</p>
+        <p><span class="blink">"HAS ANYONE GOT AN AUX CABLE?"</span></p>
+        <div class="doom">BUT THE FINAL PROPHECY IS WORSE:<br><br>MR HOOPER IS NOW DOOMED TO BE THE DIRECTOR OF MUN FOREVER.</div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="counter">00000069</div>
+      <div class="construction">PERMANENTLY UNDER CONSTRUCTION</div>
+      <p>Best viewed in 1997 with maximum volume.</p>
+      <p>Powered by LIDL socks, questionable HTML, and pure Hooper energy.</p>
+      <p>No middle aisles were harmed. One was spiritually transformed.</p>
+    </footer>
+  </div>
+
+  <div id="popup" onclick="hidePopup()">
+    <div class="box" onclick="event.stopPropagation()">
+      <div id="popupText"></div>
+      <button onclick="hidePopup()">OK COMPUTER</button>
+    </div>
+  </div>
+
+  <script>
+    function showPopup(text) {
+      document.getElementById('popupText').textContent = text;
+      document.getElementById('popup').style.display = 'flex';
+    }
+    function hidePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
